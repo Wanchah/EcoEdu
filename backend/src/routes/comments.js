@@ -1,5 +1,5 @@
 import express from 'express';
-import Comment from '../models/comments.js';
+import Comment from '../models/Comments.js';
 import Report from '../models/Report.js';
 import auth from '../middleware/auth.js';
 import { awardPoints } from '../controllers/statsController.js';
