@@ -1,8 +1,9 @@
 {
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/dist",
-  "devCommand": "cd frontend && npm run dev",
-  "installCommand": "cd frontend && npm install",
+  "rootDirectory": "frontend",
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
   "framework": "vite",
   "rewrites": [
     {
@@ -14,4 +15,3 @@
     "VITE_API_URL": "https://ecoedu-backend.onrender.com/api"
   }
 }
-
