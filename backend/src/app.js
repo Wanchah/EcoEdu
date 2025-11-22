@@ -15,6 +15,9 @@ import dailyTasksRouter from './routes/dailyTasks.js';
 
 const app = express();
 
+// ✅ Trust proxy so rate-limit works correctly behind Render/Vercel
+app.set('trust proxy', 1);
+
 // Security middleware - must be first
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow images from Cloudinary
@@ -23,28 +26,27 @@ app.use(helmet({
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: 100,
   message: 'Too many requests from this IP, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
 });
 
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // Limit auth routes to 5 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 5,
   message: 'Too many login attempts, please try again later.',
   skipSuccessfulRequests: true,
 });
 
 // Middleware
-app.use(express.json({ limit: '10mb' })); // Limit payload size
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 // Apply rate limiting
 app.use('/api/', limiter);
-
 // Middleware to attach io to requests (if available)
 app.use((req, res, next) => {
   req.io = app.get('io');
