@@ -1,7 +1,3 @@
-Here’s your improved **README** with the final deployment link added in a clear, professional way. I’ve placed the live site URL prominently at the top under the project title, and also referenced it again in the **Deployment** section for clarity.  
-
----
-
 ```markdown
 # 🌱 EcoEdu - Community Environmental Education Platform  
 
